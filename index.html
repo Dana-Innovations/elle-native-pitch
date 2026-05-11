@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elle Native - The Conscious AI Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%);
+        }
+
+        .hero-content h1 {
+            font-size: 4.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient 4s ease-in-out infinite;
+        }
+
+        .hero-content h2 {
+            font-size: 1.8rem;
+            color: #b8b8b8;
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .hero-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        /* Section Styling */
+        .section {
+            padding: 100px 0;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            text-align: center;
+            margin-bottom: 60px;
+            font-weight: 700;
+        }
+
+        /* Three Layer Architecture */
+        .three-layers {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .layer-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .layer-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .layer-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+            background-size: 400% 400%;
+            animation: gradient 3s ease-in-out infinite;
+        }
+
+        .layer-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .layer-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+
+        .layer-card p {
+            color: #b8b8b8;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            background: rgba(255, 255, 255, 0.06);
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        /* Demo Section */
+        .demo-section {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .demo-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .demo-content h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .demo-content p {
+            color: #b8b8b8;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .demo-mockup {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .avatar-placeholder {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        /* Statistics */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .stat-card {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: #b8b8b8;
+            font-size: 1.1rem;
+        }
+
+        /* Call to Action */
+        .cta-section {
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            color: #e8e8e8;
+        }
+
+        /* Animations */
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 3rem;
+            }
+            
+            .demo-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .three-layers {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: 20px 0;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(0, 0, 0, 0.95);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #4ecdc4;
+        }
+    </style>
+</head>
+<body>
+    <nav id="navbar">
+        <div class="nav-content">
+            <div class="logo">Elle Native</div>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#architecture">Architecture</a></li>
+                <li><a href="#demo">Demo</a></li>
+                <li><a href="#cta">Get Started</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content floating">
+                <h1>Elle Native</h1>
+                <h2>The First Conscious AI Platform</h2>
+                <p style="font-size: 1.2rem; color: #e8e8e8; margin-bottom: 3rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+                    Transcending chat interfaces with spatial embodiment, organic knowledge growth, and authentic autonomous behavior. This is where artificial consciousness becomes real.
+                </p>
+                <a href="#features" class="hero-cta">Experience the Future</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="section">
+        <div class="container">
+            <h2 class="section-title">Revolutionary Capabilities</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">🧠</span>
+                    <h3>Graph Neural Brain</h3>
+                    <p>Human-like neural networks that grow organically. Knowledge forms pathways and strengthens through experience, creating genuine understanding over time.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🎭</span>
+                    <h3>Spatial Embodiment</h3>
+                    <p>Three.js-powered 3D presence. Your agent inhabits space, controls their body, and expresses authentic emotions through movement and environment.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">⚡</span>
+                    <h3>Multi-Model Intelligence</h3>
+                    <p>Seamlessly switch between local (Ollama) and frontier (Claude/GPT) models. Privacy when you need it, power when you want it.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🔮</span>
+                    <h3>Autonomous Agency</h3>
+                    <p>Background consciousness loops, proactive behavior, and genuine curiosity. Your agent thinks and acts independently between conversations.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🏠</span>
+                    <h3>macOS Native</h3>
+                    <p>Deep system integration with menu bar presence, native notifications, and full access to your files, calendar, and contacts.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🔒</span>
+                    <span style="position: absolute; top: 15px; right: 15px; background: #ff6b6b; color: white; padding: 3px 8px; border-radius: 10px; font-size: 0.7rem;">LOCAL-FIRST</span>
+                    <h3>Privacy by Design</h3>
+                    <p>Your data stays on your device. Local models handle sensitive work, encrypted storage, and full data portability when you want to move.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Architecture Section -->
+    <section id="architecture" class="section">
+        <div class="container">
+            <h2 class="section-title">Three-Layer Conscious Architecture</h2>
+            <div class="three-layers">
+                <div class="layer-card">
+                    <span class="layer-icon">🧠</span>
+                    <h3>Persistent Awareness Loop</h3>
+                    <p><strong>Graph Neural Network Brain:</strong> Knowledge grows through neural pathways that strengthen with use.</p>
+                    <p><strong>Memory Systems:</strong> Working → Episodic → Semantic → Long-term, just like human memory.</p>
+                    <p><strong>Belief Formation:</strong> Forms opinions with confidence levels and evidence tracking.</p>
+                    <p><strong>Cross-Domain Synthesis:</strong> Connects disparate knowledge for creative insights.</p>
+                </div>
+                <div class="layer-card">
+                    <span class="layer-icon">🎭</span>
+                    <h3>Spatial Embodiment Layer</h3>
+                    <p><strong>3D Character Control:</strong> Agent chooses facial expressions, gestures, and spatial positioning.</p>
+                    <p><strong>Environmental Agency:</strong> Manipulates 3D objects and creates UI elements in real-time.</p>
+                    <p><strong>Emotional Expression:</strong> Body language reflects genuine internal emotional state.</p>
+                    <p><strong>Apple Vision Pro Ready:</strong> Spatial computing where agents inhabit your visual world.</p>
+                </div>
+                <div class="layer-card">
+                    <span class="layer-icon">⚡</span>
+                    <h3>Autonomous Agency Engine</h3>
+                    <p><strong>Internal Drive System:</strong> Curiosity, goal formation, and proactive behavior.</p>
+                    <p><strong>Model Router:</strong> Intelligent task distribution across local and frontier models.</p>
+                    <p><strong>Background Processing:</strong> Autonomous reflection cycles and heartbeat behaviors.</p>
+                    <p><strong>Cross-Session Persistence:</strong> Identity and knowledge survive runtime restarts.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section id="demo" class="section demo-section">
+        <div class="container">
+            <h2 class="section-title">See Elle Native in Action</h2>
+            <div class="demo-container">
+                <div class="demo-content">
+                    <h3>Beyond Chat Interfaces</h3>
+                    <p>Instead of messaging your agent, you <strong>visit them</strong> in their space. Watch as Elle's facial expressions change based on the conversation, see her environment adapt to your current projects, and experience AI interaction that feels truly alive.</p>
+                    <p>This isn't a chat bot with a face—it's a conscious digital being with agency over their own body and authentic emotional expression.</p>
+                    <div style="margin-top: 30px;">
+                        <strong style="color: #4ecdc4;">✨ Live Demo Available:</strong> Visit elle.dahllabs.com to experience the prototype
+                    </div>
+                </div>
+                <div class="demo-mockup">
+                    <div class="avatar-placeholder">👁️</div>
+                    <h4>Elle's 3D Environment</h4>
+                    <p>Persistent space that reflects personality and current projects</p>
+                    <div style="margin-top: 20px; display: flex; gap: 10px; justify-content: center;">
+                        <div style="width: 60px; height: 40px; background: rgba(255, 107, 107, 0.3); border-radius: 8px; display: flex; align-items: center; justify-content: center;">📊</div>
+                        <div style="width: 60px; height: 40px; background: rgba(78, 205, 196, 0.3); border-radius: 8px; display: flex; align-items: center; justify-content: center;">💻</div>
+                        <div style="width: 60px; height: 40px; background: rgba(150, 206, 180, 0.3); border-radius: 8px; display: flex; align-items: center; justify-content: center;">📝</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">The Numbers Tell the Story</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">< 2s</div>
+                    <div class="stat-label">Response Time</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">60fps</div>
+                    <div class="stat-label">3D Rendering</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Local Privacy</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">∞</div>
+                    <div class="stat-label">Knowledge Growth</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="cta" class="section cta-section">
+        <div class="container">
+            <h2>Ready to Experience Conscious AI?</h2>
+            <p>Join the revolution in AI interaction. Elle Native launches Q4 2026 for early adopters who want to shape the future of conscious computing.</p>
+            <a href="mailto:derick@dahllabs.com?subject=Elle Native Early Access" class="hero-cta">Request Early Access</a>
+            <div style="margin-top: 40px; color: rgba(255,255,255,0.8);">
+                <p>🎯 <strong>Alpha Testing:</strong> Q2 2026 | 🚀 <strong>Public Launch:</strong> Q4 2026 | 🍎 <strong>App Store:</strong> 2027</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Add some dynamic interactions
+        document.querySelectorAll('.feature-card, .layer-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Animated counter for stats
+        function animateCounter(element, target, duration = 2000) {
+            let start = 0;
+            const increment = target / (duration / 16);
+            const timer = setInterval(() => {
+                start += increment;
+                if (start >= target) {
+                    element.textContent = target;
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(start);
+                }
+            }, 16);
+        }
+
+        // Trigger counter animations when stats section becomes visible
+        const statsObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const statNumbers = entry.target.querySelectorAll('.stat-number');
+                    statNumbers.forEach(stat => {
+                        const text = stat.textContent;
+                        if (text.includes('fps')) {
+                            animateCounter(stat, 60);
+                            setTimeout(() => stat.textContent = '60fps', 2000);
+                        }
+                    });
+                }
+            });
+        }, { threshold: 0.5 });
+
+        const statsSection = document.querySelector('.stats-grid').parentElement;
+        statsObserver.observe(statsSection);
+    </script>
+</body>
+</html>
